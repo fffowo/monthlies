@@ -1,0 +1,29 @@
+h1 {
+    text-align: center;
+    font-family: "Amatic SC";
+    font-size: 100px;
+    color: #FFE79B;
+    background-color: #40128B;
+}
+
+h2 {
+    text-align: center;
+    font-family: "Amatic SC";
+    font-size: 50px;
+    background-color: #9336B4;
+    color: #DD58D6;
+}
+
+hr {
+    margin: auto;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    border-top: 5px dotted #8F43EE;
+    width: 5%;
+}
+
+.total {
+    font-family: "Amatic SC";
+    text-align: center;
+    font-size: 40px;
+}
