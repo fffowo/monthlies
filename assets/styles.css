@@ -1,3 +1,9 @@
+/* this gradient was made by Chris Smith at https://codepen.io/chris22smith/pen/pGNVwZ */
+body {
+    background-color:#e1d2f9;
+    background-image:linear-gradient(135deg, transparent 0%, #fff 25%, #fff 75%, transparent 100%), url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAIklEQVQoU2N89+7dfwYsQEhIiBEkzDgkFGDzAbIY2Cv4AACvrBgJjYNGfwAAAABJRU5ErkJggg==);
+  }
+
 h1 {
     text-align: center;
     font-family: "Amatic SC";
@@ -19,11 +25,91 @@ hr {
     margin-top: 5rem;
     margin-bottom: 5rem;
     border-top: 5px dotted #8F43EE;
-    width: 5%;
+    width: 15%;
 }
 
 .total {
     font-family: "Amatic SC";
     text-align: center;
-    font-size: 40px;
+    font-size: 50px;
+}
+
+.btn-custom {
+    background-color:#40128B;
+    color:#FFE79B;
+}
+
+
+
+/* -- CALENDAR ---------------------------------------------------------------------------- */
+
+.calendar {
+    display: flex;
+    flex-flow: column;
+}
+
+.calendar .days {
+    display: flex;
+    flex-flow: wrap;
+}
+.calendar .days .day_name {
+    width: calc(100% / 7);
+    border-right: 1px solid #40128B;
+    padding: 20px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Amatic SC";
+    color: #818589;
+    color: #fff;
+    background-color: #40128B;
+}
+.calendar .days .day_name:nth-child(7) {
+    border: none;
+}
+.calendar .days .day_num {
+    display: flex;
+    flex-flow: column;
+    width: calc(100% / 7);
+    border-right: 1px solid #e6e9ea;
+    border-bottom: 1px solid #e6e9ea;
+    padding: 15px;
+    font-weight: bold;
+    color: #7c878d;
+    cursor: pointer;
+    min-height: 100px;
+}
+.calendar .days .day_num span {
+    display: inline-flex;
+    width: 30px;
+    font-size: 14px;
+}
+.calendar .days .day_num .event {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background-color: #9336B4;
+    color: #fff;
+    word-wrap: break-word;
+}
+.calendar .days .day_num .event.today {
+    background-color: #40128B;
+    color: #FFE79B;
+}
+.calendar .days .day_num:nth-child(7n+1) {
+    border-left: 1px solid #e6e9ea;
+}
+.calendar .days .day_num:hover {
+    background-color: #fdfdfd;
+}
+.calendar .days .day_num.ignore {
+    background-color: #fdfdfd;
+    color: #ced2d4;
+    cursor: inherit;
+}
+.calendar .days .day_num.selected {
+    background-color: #f1f2f3;
+    cursor: inherit;
 }

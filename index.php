@@ -1,5 +1,7 @@
 <?php
 include('./includes/functions.php');
+include('./includes/class-calendar.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -29,14 +31,6 @@ include('./includes/functions.php');
             <br>Monthlies
         </h1>
 
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <div class="input-group mb-3">
-
-                <input type="number" class="form-control" name="amount" step="0.01" required>
-                <input type="submit" class="btn btn-outline-secondary btn-lg" name="submit-button" value="submit" type="button">
-            </div>
-        </form>
-
         <?php
         $submitted_amount = htmlspecialchars($_POST["amount"]);
         $today = date("Y-m-d");
@@ -44,41 +38,65 @@ include('./includes/functions.php');
         $month = date("Y-m", $d);
         $month_h2 = date('F Y');
 
-        if (isset($_POST["submit-button"])) {
-            echo $submitted_amount . "<br>";
-            echo $today;
-            submit_to_db($submitted_amount, $today);
-        }
-
         ?>
         <div class="d-grid mx-auto">
             <h2><?php echo $month_h2; ?></h2>
-            <?php $monthly = get_totals($month); ?>
-            <span class="total"><?php echo $monthly; ?></span>
-        </div>
-
-
-            <hr>
 
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <div class="d-grid gap-2 col-6 mx-auto">
-            <input type="submit" class="btn btn-outline-secondary btn-lg rounded-pill" name="getTotalsBtn" value="get totals" type="button">
+                <div class="input-group mb-3">
+
+                    <input type="number" class="form-control" name="amount" step="0.01" required>
+                    <input type="submit" class="btn btn-lg btn-custom" name="submit-button" value="submit" type="button">
+                </div>
             </form>
+
+
             <?php
 
-            if (isset($_POST["getTotalsBtn"])) {
-                get_all($month);
+            if (isset($_POST["submit-button"])) {
+                echo $submitted_amount . "<br>";
+                echo $today;
+                submit_to_db($submitted_amount, $today);
             }
 
-            // complete totals:
-            // $total = get_totals('%');
-            // echo $total;
-            ?>
-
+            $monthly = get_totals($month); ?>
+            <span class="total"><?php echo $monthly; ?></span>
         </div>
-
     </div>
 
-</body>
+    <div class="col-lg-4 col-sm-12 mx-auto">
+        <hr>
+        <?php
+        $calendar = new Calendar($today);
+        foreach (make_events($month) as $event) {
+            $calendar->add_event('<i class="fa-solid fa-money-bill-1-wave"></i>', $event);
+        }
+        $calendar->add_event('<i class="fa-solid fa-star fa-bounce"></i>', $today, 1, 'today');
+        echo $calendar;
+        ?>
+    </div>
 
+
+    <div class="d-grid mx-auto">
+        <hr>
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <input type="submit" class="btn btn-lg rounded-pill btn-custom" name="getTotalsBtn" value="get totals" type="button">
+        </form>
+        <?php
+
+        // GET TOTALS:
+        if (isset($_POST["getTotalsBtn"])) {
+            get_all($month);
+        }
+
+        // complete totals:
+        // $total = get_totals('%');
+        // echo $total;
+
+        ?>
+    </div>
+    <hr>
+    </div>
+</body>
 </html>

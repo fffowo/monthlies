@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * 
+ */
 function get_database_data()
 {
 
@@ -44,6 +47,9 @@ function submit_to_db($submitted_amount, $date)
 }
 
 
+
+
+
 function get_totals($month)
 {
     $sql = "SELECT SUM(amount) FROM monthlies WHERE date LIKE '" . $month . "%';";
@@ -59,7 +65,6 @@ function get_totals($month)
     connect()->close();
 }
 
-
 function get_all($month)
 {
     $sql = "SELECT * FROM monthlies WHERE date LIKE '" . $month . "%'" . "ORDER BY date desc";
@@ -67,7 +72,7 @@ function get_all($month)
 
     while ($row = $results->fetch_assoc()) {
 ?>
-        <table class="table">
+        <table class="table table-sm">
             <tr>
                 <td>
                     <?php echo $row["date"]; ?>
@@ -83,6 +88,24 @@ function get_all($month)
     }
     connect()->close();
 }
+
+
+function make_events($month)
+{
+    $sql = "SELECT * FROM monthlies WHERE date LIKE '" . $month . "%'" . "ORDER BY date desc";
+    $results = connect()->query($sql);
+
+    $dates = array();
+
+    while($row = $results->fetch_assoc()) {
+        array_push($dates, $row['date']);
+    }
+
+    return $dates;
+
+    connect()->close();
+}
+
 
 
 ?>
